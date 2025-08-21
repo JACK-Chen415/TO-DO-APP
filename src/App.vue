@@ -16,16 +16,16 @@ function add() {
 
   let maxId = 0; // 先默认最大id为0
   if (list.value.length > 0) {
-  // 遍历列表中的每一项，找到最大的id
-  for (let i = 0; i < list.value.length; i++) {
-    // 当前项的id
-    const currentId = list.value[i].id;
-    // 如果当前项的id大于maxId，就更新maxId
-    if (currentId > maxId) {
-      maxId = currentId;
+    // 遍历列表中的每一项，找到最大的id
+    for (let i = 0; i < list.value.length; i++) {
+      // 当前项的id
+      const currentId = list.value[i].id;
+      // 如果当前项的id大于maxId，就更新maxId
+      if (currentId > maxId) {
+        maxId = currentId;
+      }
     }
   }
-}
   
   list.value.push({
     id: maxId + 1, // 添加唯一id
@@ -65,7 +65,9 @@ function del(index) {
         <span class="name">{{ item.value }}</span>
       </div>
 
-      <div @click="del(index)" class="del">del</div>
+      <div class="del-button" @click="del(index)">
+        del
+      </div>
     </div>
   </div>
 </template>
@@ -73,10 +75,10 @@ function del(index) {
 <style scoped>
 .todo-app {
   box-sizing: border-box;
-  margin-top: 40px;
-  margin-left: 1%;
+  margin: 40px auto;
   padding-top: 30px;
-  width: 98%;
+  width: 80%;
+  max-width: 800px;
   height: 500px;
   background: #ffffff;
   border-radius: 5px;
@@ -90,14 +92,14 @@ function del(index) {
 
 .todo-form {
   display: flex;
-  margin: 20px 0 30px 20px;
+  justify-content: center;
+  margin: 20px 0 30px;
 }
 
 .todo-button {
   width: 100px;
   height: 52px;
   border-radius: 0 20px 20px 0;
-
   text-align: center;
   background: linear-gradient(
     to right,
@@ -109,6 +111,13 @@ function del(index) {
   cursor: pointer;
   font-size: 14px;
   user-select: none;
+  /* 添加过渡效果，让变化更平滑 */
+  transition: transform 0.2s ease; 
+}
+
+/* 鼠标悬停时放大 */
+.todo-button:hover {
+  transform: scale(1.05); 
 }
 
 .todo-input {
@@ -117,6 +126,7 @@ function del(index) {
   border: 1px solid #dfe1e5;
   outline: none;
   width: 60%;
+  max-width: 500px;
   height: 50px;
 }
 
@@ -133,8 +143,26 @@ function del(index) {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 20px;
 }
 
-.del {
-  color: red;
+/* 白色删除按钮样式 - 红色文字 */
+.del-button {
+  width: 60px;
+  height: 36px;
+  border-radius: 20px;
+  text-align: center;
+  background-color: white; /* 白色背景 */
+  color: #ff4d4f; /* 红色文字 */
+  border: 1px solid #e5e7eb; /* 浅灰色边框 */
+  line-height: 36px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+  transition: transform 0.2s ease; /* 过渡效果 */
+}
+
+/* 删除按钮悬停放大效果 */
+.del-button:hover {
+  transform: scale(1.05); /* 略微放大 */
+  border-color: #ff4d4f; /* 悬停时边框变红 */
 }
 
 .completed {
